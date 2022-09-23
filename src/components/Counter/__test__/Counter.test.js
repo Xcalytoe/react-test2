@@ -73,7 +73,6 @@ test("Increasing input and clicking button works correctly", () => {
   const minusBtnEl = screen.getByTestId("minus-btn");
   const counterEl = screen.getByTestId("counter");
   const inputEl = screen.getByTestId("counter-input");
-  //   expect(counterEl.textContent).toBe("0");
   fireEvent.change(inputEl, {
     target: {
       value: "1",
@@ -95,4 +94,29 @@ test("decreasing input and clicking button works correctly", () => {
   });
   fireEvent.click(plusBtnEl);
   expect(counterEl.textContent).toBe("2");
+});
+
+test("Contain different class for 100 and -100", () => {
+  render(<Counter />);
+  const plusBtnEl = screen.getByTestId("btn-plus");
+  const counterEl = screen.getByTestId("counter");
+  const inputEl = screen.getByTestId("counter-input");
+  const minusBtnEl = screen.getByTestId("minus-btn");
+
+  expect(counterEl.className).toBe("");
+
+  fireEvent.change(inputEl, {
+    target: { value: "50" },
+  });
+  fireEvent.click(plusBtnEl);
+  fireEvent.click(plusBtnEl);
+
+  expect(counterEl.className).toBe("green");
+
+  fireEvent.click(minusBtnEl);
+  fireEvent.click(minusBtnEl);
+  fireEvent.click(minusBtnEl);
+  fireEvent.click(minusBtnEl);
+  fireEvent.click(minusBtnEl);
+  expect(counterEl.className).toBe("red");
 });
